@@ -54,7 +54,7 @@ jobs:
     needs: build-backend
     steps:
       - uses: actions/checkout@v2
-    - name: create target folder
+      - name: create target folder
         run: mkdir backend/target
       - name: download backend.jar
         uses: actions/download-artifact@v2
