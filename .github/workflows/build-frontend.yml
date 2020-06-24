@@ -54,15 +54,13 @@ jobs:
     needs: build-backend
     steps:
       - uses: actions/checkout@v2
-      - name: create target folder
-        run: |
-          mkdir todo-app-web
-          mkdir todo-app-web/target
+    - name: create target folder
+        run: mkdir backend/target
       - name: download backend.jar
         uses: actions/download-artifact@v2
         with:
           name: backend.jar
-          path: todo-app-web/target
+          path: backend/target
       - name: login to heroku
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
