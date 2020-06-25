@@ -49,7 +49,7 @@ jobs:
           path: backend/target/backend.jar
 
   deploy:
-    name: deploy to heroku
+    name: deploy to herokuu
     runs-on: ubuntu-latest
     needs: build-backend
     steps:
