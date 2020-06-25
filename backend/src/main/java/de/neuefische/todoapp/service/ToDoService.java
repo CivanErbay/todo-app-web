@@ -1,6 +1,7 @@
 package de.neuefische.todoapp.service;
 
 import de.neuefische.todoapp.db.ToDoDb;
+import de.neuefische.todoapp.db.ToDoMongoDb;
 import de.neuefische.todoapp.model.ToDo;
 import de.neuefische.todoapp.model.ToDoStatus;
 import org.springframework.stereotype.Service;
@@ -15,40 +16,36 @@ import static de.neuefische.todoapp.model.ToDoStatus.OPEN;
 public class ToDoService {
 
     private ToDoDb toDoDb;
-    private ToDoStatus toDoStatus = OPEN;
+    private ToDoMongoDb toDoMongoDb;
 
 
-    public ToDoService(ToDoDb toDoDb) {
+    public ToDoService(ToDoDb toDoDb, ToDoMongoDb toDoMongoDb) {
         this.toDoDb = toDoDb;
+        this.toDoMongoDb = toDoMongoDb;
     }
 
+
     //Methoden
-    public ArrayList<ToDo> getToDo() {
-        return toDoDb.getToDo();
+    public List<ToDo> getToDo() {
+        return (List<ToDo>) toDoMongoDb.findAll();
     }
 
     public ToDo addToDo(ToDo toDo) {
         toDo.setStatus(OPEN);
         toDo.setId(""+ UUID.randomUUID());
-        return toDoDb.addToDo(toDo);
+        return toDoMongoDb.save(toDo);
 
     }
 
-    public ToDo switchToDo(String id){
-        return  toDoDb.switchStatus(id);
-    }
 
     public ToDo updateStatus(String id, ToDoStatus status) {
         return toDoDb.updateStatus(id,status);
     }
 
-    //Returns ToDoStatus to fill IN
-    public ToDoStatus getStatus() {
-        return toDoStatus;
-    }
+
 
     public ArrayList<ToDo> deleteItem(String id) {
-        return toDoDb.deleteToDo(id);
+        return toDoDb.deleteToDo(id); //with MongoDb .remove
     }
 
 

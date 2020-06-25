@@ -1,8 +1,6 @@
 package de.neuefische.todoapp.controller;
 
 import de.neuefische.todoapp.model.ToDo;
-import de.neuefische.todoapp.model.ToDoStatus;
-import de.neuefische.todoapp.model.UpdateToDoStatus;
 import de.neuefische.todoapp.service.ToDoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +16,7 @@ public class ToDoController {
     private ToDoService toDoService;
 
     @GetMapping
-    public ArrayList<ToDo> GetToDo() {
+    public List<ToDo> GetToDo() {
         return toDoService.getToDo();
     }
 
@@ -27,12 +25,7 @@ public class ToDoController {
     return toDoService.addToDo(todo);
     }
 
-  /* //Meine eigene Methode - hat auch geklappt und bezieht sich auf switchStatus Methode in ToDoDb
-    @PutMapping("{id}/status")
-    public ToDo setStatus(@PathVariable String id, @RequestBody UpdateToDoStatus status)
-    {
-        return toDoService.switchToDo(id);
-    }*/
+
 
     @PutMapping("{id}/status")
     public ToDo setStatus(@PathVariable String id, @RequestBody ToDo body)
